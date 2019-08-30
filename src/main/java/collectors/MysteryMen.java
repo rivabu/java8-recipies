@@ -22,6 +22,18 @@ public class MysteryMen {
         Map<String, String> actorMap = actors.stream()
                 .collect(Collectors.toMap(Actor::getName, Actor::getRole));
 
-        actorMap.forEach((key,value) -> System.out.printf("%s played %s%n", key, value));
+        actorMap.forEach((key, value) -> System.out.printf("%s played %s%n", key, value));
     }
+
+    /*
+    Janeane Garofalo played The Bowler
+Greg Kinnear played Captain Amazing
+Paul Reubens played The Spleen
+William H. Macy played The Shoveler
+Wes Studi played The Sphinx
+Kel Mitchell played Invisible Boy
+Ben Stiller played Mr. Furious
+Geoffrey Rush played Casanova Frankenstein
+Hank Azaria played The Blue Raja
+     */
 }

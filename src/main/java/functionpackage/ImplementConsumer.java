@@ -1,6 +1,5 @@
 package functionpackage;
 
-import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.logging.Logger;
@@ -36,7 +35,7 @@ public class ImplementConsumer {
             }
         };
         Stream.of("this", "is", "a", "list")
-              .forEach(consumer);
+                .forEach(consumer);
 
         // Simpler
         consumer = s -> System.out.println(s);

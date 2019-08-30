@@ -2,7 +2,11 @@ package generics;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
@@ -88,7 +92,6 @@ public class Demo {
 //        numbers.add(3.14159);
 //        numbers.add(new BigDecimal("3"));
 
-
         ints = Arrays.asList(1, 2, 3, 4, 5);
         List<Double> doubles = Arrays.asList(1.0, 2.0, 3.0, 4.0, 5.0);
         List<BigDecimal> bigDecimals = Arrays.asList(
@@ -98,7 +101,6 @@ public class Demo {
                 new BigDecimal("4.0"),
                 new BigDecimal("5.0")
         );
-
 
         System.out.printf("The sum of the ints is         %s%n", sumList(ints));
         System.out.printf("The sum of the doubles is      %s%n", sumList(doubles));
@@ -123,21 +125,26 @@ public class Demo {
                     public int compare(Employee e1, Employee e2) {
                         return e1.getId() - e2.getId();
                     }
-                }).orElse(Employee.DEFAULT_EMPLOYEE);
+                })
+                .orElse(Employee.DEFAULT_EMPLOYEE);
         Employee maxName = employees.stream()
                 .max(new Comparator<Object>() {
                     @Override
                     public int compare(Object o1, Object o2) {
-                        return o1.toString().compareTo(o2.toString());
+                        return o1.toString()
+                                .compareTo(o2.toString());
                     }
-                }).orElse(Employee.DEFAULT_EMPLOYEE);
+                })
+                .orElse(Employee.DEFAULT_EMPLOYEE);
         System.out.println("Max id is " + maxId);
         System.out.println("Max name is " + maxName);
 
         maxId = employees.stream()
-                .max(comparingInt(Employee::getId)).orElse(Employee.DEFAULT_EMPLOYEE);
+                .max(comparingInt(Employee::getId))
+                .orElse(Employee.DEFAULT_EMPLOYEE);
         maxName = employees.stream()
-                .max(comparing(Object::toString)).orElse(Employee.DEFAULT_EMPLOYEE);
+                .max(comparing(Object::toString))
+                .orElse(Employee.DEFAULT_EMPLOYEE);
         System.out.println(maxId);
         System.out.println(maxName);
 
@@ -151,7 +158,8 @@ public class Demo {
 
         // Sort employees by id and print them
         System.out.println("Sorted by key:");
-        employeeMap.entrySet().stream()
+        employeeMap.entrySet()
+                .stream()
                 .sorted(Map.Entry.comparingByKey())
                 .forEach(entry -> {
                     System.out.println(entry.getKey() + ": " + entry.getValue());
@@ -159,11 +167,49 @@ public class Demo {
 
         // Sort employees by name and print them
         System.out.println("Sorted by name:");
-        employeeMap.entrySet().stream()
+        employeeMap.entrySet()
+                .stream()
                 .sorted(Map.Entry.comparingByValue(comparing(Employee::getName)))
                 // .sorted(Map.Entry.comparingByValue())
                 .forEach(entry -> {
                     System.out.println(entry.getKey() + ": " + entry.getValue());
                 });
     }
+
+    /*
+    Hello has length 5
+World has length 5
+[3, 1, 4, 1, 9, 2]
+3
+1
+4
+1
+9
+2
+[Hello, 2019-03-13, 3]
+numElements = 0
+[3, 1, 4, 1, 9, 2]
+[Hello, World]
+[]
+The sum of the ints is         15.0
+The sum of the doubles is      15.0
+The sum of the big decimals is 15.0
+[1, 2, 3, 4, 5]
+[1, 2, 3, 4, 5]
+[1, 2, 3, 4, 5]
+Max id is Klay Thompson
+Max name is Seth Curry
+Klay Thompson
+Seth Curry
+Sorted by key:
+1: Seth Curry
+2: Kevin Durant
+3: Draymond Green
+4: Klay Thompson
+Sorted by name:
+3: Draymond Green
+2: Kevin Durant
+4: Klay Thompson
+1: Seth Curry
+     */
 }

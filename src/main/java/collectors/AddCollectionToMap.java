@@ -25,15 +25,38 @@ public class AddCollectionToMap {
         Map<Integer, Book> bookMap = books.stream()
                 .collect(Collectors.toMap(Book::getId, book -> book));
 
-        bookMap.forEach((k,v) ->
+        bookMap.forEach((k, v) ->
                 System.out.println(k + ": " + v)
         );
 
         bookMap = books.stream()
                 .collect(Collectors.toMap(Book::getId, Function.identity()));
 
-        bookMap.forEach((k,v) ->
+        bookMap.forEach((k, v) ->
                 System.out.println(k + ": " + v)
         );
     }
+
+    /*
+    1: Product{id=1, name='Java 8 in Action', price=49.99}
+2: Product{id=2, name='Java SE8 for the Really Impatient', price=39.99}
+3: Product{id=3, name='Core Java Volume I -- Fundamentals', price=43.3}
+4: Product{id=4, name='Functional Programming in Java', price=27.64}
+5: Product{id=5, name='Making Java Groovy', price=45.99}
+6: Product{id=6, name='Head First Java', price=26.97}
+7: Product{id=7, name='Effective Java', price=35.47}
+8: Product{id=8, name='Java 8 Pocket Guide', price=10.4}
+9: Product{id=9, name='Gradle Recipes for Android', price=23.76}
+10: Product{id=10, name='Spring Boot in Action', price=39.97}
+1: Product{id=1, name='Java 8 in Action', price=49.99}
+2: Product{id=2, name='Java SE8 for the Really Impatient', price=39.99}
+3: Product{id=3, name='Core Java Volume I -- Fundamentals', price=43.3}
+4: Product{id=4, name='Functional Programming in Java', price=27.64}
+5: Product{id=5, name='Making Java Groovy', price=45.99}
+6: Product{id=6, name='Head First Java', price=26.97}
+7: Product{id=7, name='Effective Java', price=35.47}
+8: Product{id=8, name='Java 8 Pocket Guide', price=10.4}
+9: Product{id=9, name='Gradle Recipes for Android', price=23.76}
+10: Product{id=10, name='Spring Boot in Action', price=39.97}
+     */
 }

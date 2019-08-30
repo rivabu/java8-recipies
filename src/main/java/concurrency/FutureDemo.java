@@ -1,6 +1,10 @@
 package concurrency;
 
-import java.util.concurrent.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class FutureDemo {
     public static void main(String[] args) {
@@ -10,8 +14,8 @@ public class FutureDemo {
         Future<String> future = service.submit(new Callable<String>() {
             @Override
             public String call() throws Exception {
-                Thread.sleep(100);
-                return "Hello, World!";
+                Thread.sleep(20);
+                return "Hello, World! in lambda";
             }
         });
 
@@ -20,8 +24,9 @@ public class FutureDemo {
         getIfNotCancelled(future);
 
         future = service.submit(() -> {
+            // hier komt ie als ie klaar is
             Thread.sleep(10);
-            return "Hello, World!";
+            return "Hello, World! 1";
         });
 
         System.out.println("More processing...");
@@ -34,7 +39,7 @@ public class FutureDemo {
 
         future = service.submit(() -> {
             Thread.sleep(10);
-            return "Hello, World!";
+            return "Hello, World! 2";
         });
 
         future.cancel(true);
@@ -58,4 +63,22 @@ public class FutureDemo {
             e.printStackTrace();
         }
     }
+
+    /*
+    Processing...
+Hello, World! in lambda
+More processing...
+Waiting...
+Waiting...
+    Waiting...
+Waiting...
+Waiting...
+Waiting...
+Waiting...
+Waiting...
+Hello, World! 1
+Even more processing...
+Cancelled
+
+     */
 }

@@ -12,19 +12,21 @@ import java.util.stream.Stream;
 public class ReduceDemo {
     @SuppressWarnings("Convert2MethodRef")
     public static void main(String[] args) {
-        int sum = IntStream.rangeClosed(1, 10)
-                .reduce((x, y) -> x + y).orElse(0);
+        int sum = IntStream.rangeClosed(1, 1)
+                .reduce(0, (x, y) -> x + y);
         System.out.println(sum);
 
         sum = IntStream.rangeClosed(1, 10)
                 .reduce((x, y) -> {
                     System.out.printf("x=%d, y=%d%n", x, y);
                     return x + y;
-                }).orElse(0);
+                })
+                .orElse(0);
         System.out.println(sum);
 
         sum = IntStream.rangeClosed(1, 10)
-                .reduce(Integer::sum).orElse(0);
+                .reduce(Integer::sum)
+                .orElse(0);
 //
 //        sum = Stream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 //                .reduce(0, Integer::sum);
@@ -32,7 +34,8 @@ public class ReduceDemo {
 //
 //        // Off-by-one error: first value doesn't get doubled
         int doubleSum = IntStream.rangeClosed(1, 10)
-                .reduce((acc, n) -> acc + 2 * n).orElse(0);
+                .reduce((acc, n) -> acc + 2 * n)
+                .orElse(0);
         System.out.println(doubleSum);
 
         // off-by-one with print
@@ -40,7 +43,8 @@ public class ReduceDemo {
                 .reduce((acc, n) -> {
                     System.out.printf("acc = %d, n = %d%n", acc, n);
                     return acc + 2 * n;
-                }).orElse(0);
+                })
+                .orElse(0);
         System.out.println(doubleSum);
 
         // correct
@@ -69,6 +73,12 @@ public class ReduceDemo {
         // Inefficient, but works
         String s = Stream.of("this", "is", "a", "list")
                 .reduce("", String::concat);
+        System.out.println(s);
+
+        s = Stream.of("this", "is", "a", "list")
+                .reduce("", (a, b) -> {
+                    return a.concat(b);
+                });
         System.out.println(s);
 
         // Better, but verbose
@@ -105,7 +115,7 @@ public class ReduceDemo {
                             return map1;
                         });
 
-        bookMap.forEach((k,v) -> System.out.println(k + ": " + v));
+        bookMap.forEach((k, v) -> System.out.println(k + ": " + v));
 
     }
 }

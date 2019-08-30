@@ -1,11 +1,11 @@
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -27,8 +27,11 @@ public class PalindromeCheckerTest {
                             sb.append(c);
                         }
                     }
-                    String forward = sb.toString().toLowerCase();
-                    String backward = sb.reverse().toString().toLowerCase();
+                    String forward = sb.toString()
+                            .toLowerCase();
+                    String backward = sb.reverse()
+                            .toString()
+                            .toLowerCase();
                     assertTrue(forward.equals(backward));
                 }
         );
